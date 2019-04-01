@@ -37,6 +37,12 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+class StudentGrades(generics.ListCreateAPIView):
+    try:
+        queryset = Student.objects.get(id=id).grade_set.all()
+        serializer_class = GradeSerializer
+    except Student.DoesNotExist:
+        raise Http404
 
 class CourseList(generics.ListCreateAPIView):
     queryset = Course.objects.all()
